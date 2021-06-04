@@ -72,7 +72,7 @@ def main():
             for i in range(13, 0, -1):
                 tryComs.append("COM{}".format(i))
         else:
-            for i in range(0, 12):
+            for i in range(12, -1, -1):
                 tryComs = ["/dev/ttyUSB{}".format(i)]
         lastEx = None
         foundCom = None
