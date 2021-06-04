@@ -42,6 +42,8 @@ def test_modes(printer):
     printer.flip(True)
     printer.rotateClockwise(True)
     printer.writeLine("rotated&flipped")
+    printer.reset()
+    printer.writeLine("reset")
 
 
 def main():
