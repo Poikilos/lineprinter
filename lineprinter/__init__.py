@@ -36,14 +36,29 @@ class LinePrinter:
         (JUSTIFY_RIGHT, "right", b'\x1B\x61\x02'),
     ]
 
-    def __init__(self, com='/dev/ttyUSB0', baud=19200, width=42, preCutFeedCount=6):
+    def __init__(self, com=None, baud=None, width=42, preCutFeedCount=6):
         '''
         Keyword arguments:
-        self.preCutFeedCount -- Specify how many lines to feed before cutting.
-                   Ensure there is enough paper used before cutting to
-                   avoid jams.
+        self.preCutFeedCount -- Specify how many lines to feed before
+                   cutting. Ensure there is enough paper used before
+                   cutting to avoid jams.
         '''
+        if com is None:
+            com = "/dev/ttyUSB0"
+            if platform.system() == "Windows":
+                com = "COM7"
+            print("WARNING: Guessed com={}:".format(com))
+            print("- Set com manually in a non-test scenario"
+                  " so it doesn't interrupt your 3D printer"
+                  " or something!")
         self.com = com
+        if baud is None:
+            baud = 19200
+            print("WARNING: Guessed baud={} (This rate is only"
+                  " for thermal printers such as"
+                  " Posiflex Aura PP7000-II when in serial mode"
+                  " --See the manual for your device.)"
+                  "".format(baud))
         self.baud = baud
         self.width = width
         self.preCutFeedCount = preCutFeedCount
@@ -77,8 +92,8 @@ class LinePrinter:
 
         Keyword arguments:
         tabs -- Modify self._indent by this many instances of
-                self._tab before writing to standard output. If negative
-                then dedent this many times.
+                self._tab before writing to standard output. If
+                negative then dedent this many times.
         '''
         if self.enableEcho:
             if tabs >= 0:

@@ -21,12 +21,25 @@ The following significant changes apply:
 
 
 ## Troubleshooting
-### Serial mode
+
+### Correct settings for ports
+#### Serial mode
 - Set all switches to 0 as per the defaults for serial mode in the PP7700-II manual and ensure that the printer driver and port are set to a baud rate of 19200 accordingly.
 - If you are using a Prolific USB to serial adapter and the port in device manager is called "PL2303HXA PHASED OUT SINCE 2012", go to properties, choose other driver, and choose the prolific driver. Ensure the baud rate is 19200.
-### Other modes
+
+#### Other modes
 - Set the baud rate to match the device, such as via:
   `printer = LinePrinter(com='COM7' baud=...)` where `...` is the correct baud rate.
+
+### Windows
+#### "A device which does not exist was specified"
+This error indicates a device not compatible with Windows 10 such as Prolific USB to Serial PL2303HXA.
+
+#### "The system cannot find the file specified"
+This error indicates a non-existant serial port.
+
+#### No error and no printing 
+No error and no printing indicates the wrong serial port.
 
 
 ## Related Projects
